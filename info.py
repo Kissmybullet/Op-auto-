@@ -106,9 +106,9 @@ FQDN = os.getenv('FQDN', f"{APP_NAME}.herokuapp.com" if ON_HEROKU else BIND_ADDR
 
 HAS_SSL = bool(os.getenv('HAS_SSL', True))
 if HAS_SSL:
-    URL = f"https://{FQDN}/"
+    URL = f"https://{142.93.209.247:8080}/"
 else:
-    URL = f"http://{FQDN}/"
+    URL = f"http://{142.93.209.247:8080}/"
 
 # Further configuration...
 
