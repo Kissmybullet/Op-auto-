@@ -99,18 +99,26 @@ QUALITIES = ["360P", "", "480P", "", "720P", "", "1080P", "", "1440P", "", "2160
 
 # Online Stream and Download
 NO_PORT = bool(os.environ.get('NO_PORT', False))
-APP_NAME = os.environ.get('APP_NAME', 'YourAppName')  # Provide a default name >
+APP_NAME = os.environ.get('APP_NAME') if 'DYNO' in os.environ else None
+ON_HEROKU = 'DYNO' in os.environ
 BIND_ADDRESS = os.getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0')
-FQDN = os.getenv('FQDN', f"{APP_NAME}.yourdomain.com")  # Change to your actual>
-SLEEP_THRESHOLD = int(os.environ.get('SLEEP_THRESHOLD', '60'))
-WORKERS = int(os.environ.get('WORKERS', '4'))
-SESSION_NAME = str(os.environ.get('SESSION_NAME', 'LazyBot'))
-name = str(os.environ.get('name', 'LazyPrincess'))
-PING_INTERVAL = int(os.environ.get("PING_INTERVAL", "1200"))  # 20 minutes
-HAS_SSL = bool(os.getenv('HAS_SSL', True))  # Change to False or True as per yo>
-# URL assignment based on the presence of SSL
+FQDN = os.getenv('FQDN', f"{APP_NAME}.herokuapp.com" if ON_HEROKU else BIND_ADD>
+URL = "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN) if ON_HEROKU>
+    "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN, PORT)
+SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
+WORKERS = int(environ.get('WORKERS', '4'))
+SESSION_NAME = str(environ.get('SESSION_NAME', 'LazyBot'))
+MULTI_CLIENT = False
+name = str(environ.get('name', 'LazyPrincess'))
+PING_INTERVAL = int(environ.get("PING_INTERVAL", "1200"))  # 20 minutes
+if 'DYNO' in environ:
+    ON_HEROKU = True
+    APP_NAME = str(getenv('APP_NAME'))
+else:
+    ON_HEROKU = False
+HAS_SSL = bool(os.getenv('HAS_SSL', True))
 if HAS_SSL:
-    URL = f"http://142.93.209.247:8080/"  # Replace with your actual server IP >
+    URL = f"http://142.93.209.247:8080/"
 else:
     URL = f"http://142.93.209.247:8080/"  # Same as above
 # Further configuration...
