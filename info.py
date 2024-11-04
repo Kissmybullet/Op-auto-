@@ -60,8 +60,8 @@ VERIFY = bool(environ.get('VERIFY', False)) # Verification On ( True ) / Off ( F
 HOWTOVERIFY = environ.get('HOWTOVERIFY', 'https://t.me/Entertainment_AG') # How to open tutorial link for verification
 
 # Others
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'Publicearn.com')
-SHORTLINK_API = environ.get('SHORTLINK_API', '443bca4695448f5d6d0459d0c2346ad5431f8e98')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
+SHORTLINK_API = environ.get('SHORTLINK_API', '')
 IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "5")
@@ -98,12 +98,16 @@ SEASONS = ["season 1" , "season 2" , "season 3" , "season 4", "season 5" , "seas
 QUALITIES = ["360P", "", "480P", "", "720P", "", "1080P", "", "1440P", "", "2160P", ""]
 
 # Online Stream and Download
-NO_PORT = bool(os.environ.get('NO_PORT', False))
-APP_NAME = os.environ.get('APP_NAME') if 'DYNO' in os.environ else None
-ON_HEROKU = 'DYNO' in os.environ
-BIND_ADDRESS = os.getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0')
-FQDN = os.getenv('FQDN', f"{APP_NAME}.herokuapp.com" if ON_HEROKU else BIND_ADD>
-URL = "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN) if ON_HEROKU>
+NO_PORT = bool(environ.get('NO_PORT', False))
+APP_NAME = None
+if 'DYNO' in environ:
+    ON_HEROKU = True
+    APP_NAME = environ.get('APP_NAME')
+else:
+    ON_HEROKU = False
+BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
+FQDN = str(getenv('FQDN', BIND_ADRESS)) if not ON_HEROKU or getenv('FQDN') else APP_NAME+'.herokuapp.com'
+URL = "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN) if ON_HEROKU or NO_PORT else \
     "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN, PORT)
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
 WORKERS = int(environ.get('WORKERS', '4'))
@@ -114,13 +118,14 @@ PING_INTERVAL = int(environ.get("PING_INTERVAL", "1200"))  # 20 minutes
 if 'DYNO' in environ:
     ON_HEROKU = True
     APP_NAME = str(getenv('APP_NAME'))
+
 else:
     ON_HEROKU = False
-HAS_SSL = bool(os.getenv('HAS_SSL', True))
+HAS_SSL=bool(getenv('HAS_SSL',True))
 if HAS_SSL:
-    URL = f"http://142.93.209.247:8080/"
+    URL = "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN)
 else:
-    URL = f"http://142.93.209.247:8080/"  # Same as above
+    URL = "https://moviebotx-ee96f200188f.herokuapp.com/".format(FQDN)  # Same as above
 # Further configuration...
 
 # add premium logs channel id
