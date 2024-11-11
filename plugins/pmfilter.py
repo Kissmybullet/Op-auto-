@@ -1,5 +1,6 @@
 # Kanged From @TroJanZheX
 # Thanks @DeletedFromEarth
+import os
 import asyncio
 import re
 import ast
@@ -44,6 +45,7 @@ import tracemalloc
 # Enable tracemalloc
 tracemalloc.start()
 
+req_channel = REQ_CHANNEL
 TIMEZONE = "Asia/Kolkata"
 BUTTON = {}
 BUTTONS = {}
