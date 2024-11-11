@@ -45,7 +45,7 @@ import tracemalloc
 # Enable tracemalloc
 tracemalloc.start()
 
-req_channel = REQ_CHANNEL
+req_channel = int(os.environ.get('REQ_CHANNEL','-1001586987735'))
 TIMEZONE = "Asia/Kolkata"
 BUTTON = {}
 BUTTONS = {}
